@@ -27,17 +27,28 @@ def formatTitlePage(values):
 
   <p class="data-field">Kategorie: <span class="data-content">%(category)s</span></p>
 
-  %(content)s
+  %(toc)s
 </body>
 </html>""" % values
 
-def content(values):
+
+def toc(tocPreface, tocMain):
     return """<h3 class="story-content sigil_not_in_toc">Inhalt</h3>
     
-  <p class="story-content-item-level-1"><a href="../Text/Section0002.xhtml#vorwort-der-fluesterer-im-dunkeln">Vorwort</a></p>
+  %(toc-preface)s
 
-  <p class="story-content-item-level-1"><a href="../Text/Section0003.xhtml#hauptgeschichte-der-fluesterer-im-dunkeln">Der Flüsterer im Dunkeln</a></p>
+  %(toc-main)s""" % {'toc-preface': tocPreface, 'toc-main': tocMain}
 
-  <p class="story-content-item-level-2"><a href="../Text/Section0003.xhtml#der-fluesterer-im-dunkeln-kapitel-I">Kapitel I</a></p>
 
-  <p class="story-content-item-level-2"><a href="../Text/Section0003.xhtml#der-fluesterer-im-dunkeln-kapitel-II">Kapitel II</a></p>"""
+def tocPreface(slug):
+    return """<p class="story-content-item-level-1"><a href="../Text/Section0002.xhtml#%(slug)s">Vorwort</a></p>""" % {'slug': slug }
+
+
+def tocMainTitle(title, titleSlug):
+    return """<p class="story-content-item-level-1"><a href="../Text/Section0003.xhtml#hauptgeschichte-%(title-slug)s">%(title)s</a></p>
+""" % {'title': title, 'title-slug': titleSlug}
+
+
+def tocChapter(chapterTitle, chapterSlug):
+    return """<p class="story-content-item-level-2"><a href="../Text/Section0003.xhtml#%(chapter-slug)s">%(chapter-title)s</a></p>
+""" % {'chapter-title': chapterTitle, 'chapter-slug': chapterSlug}
