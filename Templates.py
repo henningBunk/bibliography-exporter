@@ -1,5 +1,7 @@
+from Story import Story
+
 # print '<a href="%(url)s">%(url)s</a>' % {'url': my_url}
-def formatTitlePage(values):
+def formatTitlePage(story):
     return """<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
   "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
@@ -29,26 +31,64 @@ def formatTitlePage(values):
 
   %(toc)s
 </body>
-</html>""" % values
+</html>""" % {
+        'title-german': story.titleGerman,
+        'title-german-slug': story.titleGermanSlug,
+        'title-original': story.titleOriginal,
+        'year': story.year,
+        'published': story.published,
+        'translation': story.translation,
+        'source': story.source,
+        'category': story.category,
+        'toc': formatToc(story)
+    }
 
 
-def toc(tocPreface, tocMain):
+def formatToc(story):
+    if not story.hasPreface() and not story.hasChapters():
+        return ""
+    return toc(story)
+
+
+def toc(story):
     return """<h3 class="story-content sigil_not_in_toc">Inhalt</h3>
     
-  %(toc-preface)s
+%(toc-preface)s
+%(toc-main)s
+""" % {
+        'toc-preface': (tocPreface(story)) if story.hasPreface() else "",
+        'toc-main': tocMain(story)
+    }
 
-  %(toc-main)s""" % {'toc-preface': tocPreface, 'toc-main': tocMain}
+
+def tocPreface(story):
+    return """  <p class="story-content-item-level-1"><a href="../Text/Section0002.xhtml#%(slug)s">Vorwort</a></p>
+""" % {
+        'slug': story.preface.slug
+    }
 
 
-def tocPreface(slug):
-    return """<p class="story-content-item-level-1"><a href="../Text/Section0002.xhtml#%(slug)s">Vorwort</a></p>""" % {'slug': slug }
+def tocMain(story):
+    toc = tocMainTitle(story)
+    if story.hasChapters():
+        for chapter in story.chapters:
+            toc += tocChapter(chapter.title, chapter.slug)
+    return toc
 
 
-def tocMainTitle(title, titleSlug):
-    return """<p class="story-content-item-level-1"><a href="../Text/Section0003.xhtml#hauptgeschichte-%(title-slug)s">%(title)s</a></p>
-""" % {'title': title, 'title-slug': titleSlug}
+def tocMainTitle(story):
+    return """  <p class="story-content-item-level-1"><a href="../Text/Section0003.xhtml#hauptgeschichte-%(title-slug)s">%(title)s</a></p>
+
+""" % {
+        'title': story.titleGerman,
+        'title-slug': story.titleGermanSlug
+    }
 
 
 def tocChapter(chapterTitle, chapterSlug):
-    return """<p class="story-content-item-level-2"><a href="../Text/Section0003.xhtml#%(chapter-slug)s">%(chapter-title)s</a></p>
-""" % {'chapter-title': chapterTitle, 'chapter-slug': chapterSlug}
+    return """  <p class="story-content-item-level-2"><a href="../Text/Section0003.xhtml#%(chapter-slug)s">%(chapter-title)s</a></p>
+    
+""" % {
+        'chapter-title': chapterTitle,
+        'chapter-slug': chapterSlug
+    }
