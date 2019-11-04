@@ -1,13 +1,12 @@
 import json
-
 import MainStoryTemplate
 import PrefaceTemplate
 import TitlePageTemplate
-import re
 import os
 from os.path import join
 import zipfile
 from Story import Story
+
 
 def main():
     # Read in Stories and metadata
@@ -48,6 +47,7 @@ def writePreface(index, preface):
     filename = 'Section0002.xhtml'
     message = PrefaceTemplate.formatPreface(preface)
     writeContent(filename, message)
+
 
 def writeMainContent(index, story):
     filename = 'Section0003.xhtml'
