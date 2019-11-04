@@ -2,7 +2,9 @@
   <dictionary name="henning.bunk">
     <words>
       <w>filenames</w>
+      <w>hauptgeschichte</w>
       <w>jsons</w>
+      <w>vorwort</w>
     </words>
   </dictionary>
 </component>

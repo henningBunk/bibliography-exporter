@@ -1,5 +1,6 @@
 import json
 
+import MainStoryTemplate
 import PrefaceTemplate
 import TitlePageTemplate
 import re
@@ -21,13 +22,8 @@ def main():
         writeTitlePage(1, story)
         # Preface
         writePreface(1, story.preface)
-        # f = open('Section0002.xhtml', 'w')
-        # f.write(message)
-        # f.close()
         # # Main story
-        # f = open('Section0003.xhtml', 'w')
-        # f.write(message)
-        # f.close()
+        writeMainContent(1, story)
 
     # Export ebook files
     makeEbook()
@@ -51,6 +47,11 @@ def writeTitlePage(index, story):
 def writePreface(index, preface):
     filename = 'Section0002.xhtml'
     message = PrefaceTemplate.formatPreface(preface)
+    writeContent(filename, message)
+
+def writeMainContent(index, story):
+    filename = 'Section0003.xhtml'
+    message = MainStoryTemplate.formatMainStory(story)
     writeContent(filename, message)
 
 

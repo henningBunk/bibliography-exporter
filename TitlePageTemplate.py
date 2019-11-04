@@ -74,11 +74,11 @@ def tocMain(story):
 
 
 def tocMainTitle(story):
-    return """  <p class="story-content-item-level-1"><a href="../Text/Section0003.xhtml#hauptgeschichte-%(title-slug)s">%(title)s</a></p>
+    return """  <p class="story-content-item-level-1"><a href="../Text/Section0003.xhtml#%(main-story-slug)s">%(title)s</a></p>
 
 """ % {
         'title': story.titleGerman,
-        'title-slug': story.titleGermanSlug
+        'main-story-slug': story.mainStorySlug
     }
 
 

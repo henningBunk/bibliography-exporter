@@ -1,5 +1,6 @@
 import re
 
+
 class Story:
     def __init__(self, json):
         self.author = json["author"]
@@ -12,7 +13,8 @@ class Story:
         self.translation = json['translation']
         self.category = json['category']
         self.preface = self.Preface(json)
-        self.chapters = list(map(lambda chapter: self.Chapter(chapter), json["chapters"]))
+        self.mainStorySlug = 'hauptgeschichte-' + Story.toSlug(json["title-german"])
+        self.chapters = list(map(lambda chapter: self.Chapter(chapter, self.titleGermanSlug), json["chapters"]))
 
     def hasPreface(self):
         return self.preface is not None
@@ -33,10 +35,10 @@ class Story:
             return self.author is not None
 
     class Chapter:
-        def __init__(self, json):
+        def __init__(self, json, titleGermanSlug):
             self.title = json["title"]
             self.content = json["content"]
-            self.slug = Story.toSlug(json["title"])
+            self.slug = titleGermanSlug + '-' + Story.toSlug(json["title"])
 
     @staticmethod
     def toSlug(string):
