@@ -1,7 +1,10 @@
 import json
-import Templates
+
+import PrefaceTemplate
+import TitlePageTemplate
 import re
 import os
+from os.path import join
 import zipfile
 from Story import Story
 
@@ -17,6 +20,7 @@ def main():
         # Title page
         writeTitlePage(1, story)
         # Preface
+        writePreface(1, story.preface)
         # f = open('Section0002.xhtml', 'w')
         # f.write(message)
         # f.close()
@@ -39,9 +43,20 @@ def readInJsons(inputFilenames):
 
 
 def writeTitlePage(index, story):
-    f = open('book\OEBPS\\Text\Section0001.xhtml', 'w', encoding='UTF-8')
-    message = Templates.formatTitlePage(story)
-    f.write(message)
+    filename = 'Section0001.xhtml'
+    message = TitlePageTemplate.formatTitlePage(story)
+    writeContent(filename, message)
+
+
+def writePreface(index, preface):
+    filename = 'Section0002.xhtml'
+    message = PrefaceTemplate.formatPreface(preface)
+    writeContent(filename, message)
+
+
+def writeContent(filename, content):
+    f = open(join('book', 'OEBPS', 'Text', filename), 'w', encoding='UTF-8')
+    f.write(content)
     f.close()
 
 

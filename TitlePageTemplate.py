@@ -1,6 +1,3 @@
-from Story import Story
-
-# print '<a href="%(url)s">%(url)s</a>' % {'url': my_url}
 def formatTitlePage(story):
     return """<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
@@ -72,7 +69,7 @@ def tocMain(story):
     toc = tocMainTitle(story)
     if story.hasChapters():
         for chapter in story.chapters:
-            toc += tocChapter(chapter.title, chapter.slug)
+            toc += tocMainChapter(chapter.title, chapter.slug)
     return toc
 
 
@@ -85,7 +82,7 @@ def tocMainTitle(story):
     }
 
 
-def tocChapter(chapterTitle, chapterSlug):
+def tocMainChapter(chapterTitle, chapterSlug):
     return """  <p class="story-content-item-level-2"><a href="../Text/Section0003.xhtml#%(chapter-slug)s">%(chapter-title)s</a></p>
     
 """ % {

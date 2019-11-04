@@ -29,6 +29,9 @@ class Story:
             self.content = json["preface"]["content"]
             self.slug = 'vorwort-' + Story.toSlug(json["title-german"])
 
+        def hasAuthor(self):
+            return self.author is not None
+
     class Chapter:
         def __init__(self, json):
             self.title = json["title"]
