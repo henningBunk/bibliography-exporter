@@ -55,6 +55,30 @@ h5 {
 
 }
 
+.main-content {
+	font-size: 1.5em;
+	margin-left: 1em;
+	margin-top: 2em
+}
+
+.main-content-item-level-1 {
+	margin-left: 1em;
+	margin-top: .5em;
+	margin-bottom: .75em
+}
+
+.main-content-item-level-2 {
+	margin-left: 2em;
+	margin-top: .5em;
+	margin-bottom: .5em
+}
+
+.main-content-item-level-3 {
+	margin-left: 3em;
+	margin-top: .5em;
+	margin-bottom: .5em
+}
+
 .story-content {
 	font-size: 1.5em;
 	margin-left: 1em;

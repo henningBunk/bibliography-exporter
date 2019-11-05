@@ -3,6 +3,8 @@ import re
 
 class Story:
     def __init__(self, json):
+        self.filenameTitlePage = ""
+        self.filenameMainStory = ""
         self.author = json["author"]
         self.titleGerman = json["title-german"]
         self.titleGermanSlug = Story.toSlug(json["title-german"])
@@ -27,6 +29,7 @@ class Story:
 
     class Preface:
         def __init__(self, json):
+            self.filenamePreface = ""
             self.author = json["preface"]["author"]
             self.content = json["preface"]["content"]
             self.slug = 'vorwort-' + Story.toSlug(json["title-german"])

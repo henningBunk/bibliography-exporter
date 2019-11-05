@@ -65,9 +65,10 @@ def toc(story):
 
 
 def tocPreface(story):
-    return """  <p class="story-content-item-level-1"><a href="../Text/Section0002.xhtml#%(slug)s">Vorwort</a></p>
+    return """  <p class="story-content-item-level-1"><a href="../%(filename)s#%(slug)s">Vorwort</a></p>
 """ % {
-        'slug': story.preface.slug
+        'slug': story.preface.slug,
+        'filename': story.preface.filenamePreface
     }
 
 
@@ -75,23 +76,25 @@ def tocMain(story):
     toc = tocMainTitle(story)
     if story.hasChapters():
         for chapter in story.chapters:
-            toc += tocMainChapter(chapter.title, chapter.slug)
+            toc += tocMainChapter(story.filenameMainStory, chapter.title, chapter.slug)
     return toc
 
 
 def tocMainTitle(story):
-    return """  <p class="story-content-item-level-1"><a href="../Text/Section0003.xhtml#%(main-story-slug)s">%(title)s</a></p>
+    return """  <p class="story-content-item-level-1"><a href="../%(filename)s#%(main-story-slug)s">%(title)s</a></p>
 
 """ % {
+        'filename': story.filenameMainStory,
         'title': story.titleGerman,
         'main-story-slug': story.mainStorySlug
     }
 
 
-def tocMainChapter(chapterTitle, chapterSlug):
-    return """  <p class="story-content-item-level-2"><a href="../Text/Section0003.xhtml#%(chapter-slug)s">%(chapter-title)s</a></p>
+def tocMainChapter(filename, chapterTitle, chapterSlug):
+    return """  <p class="story-content-item-level-2"><a href="../%(filename)s#%(chapter-slug)s">%(chapter-title)s</a></p>
     
 """ % {
+        'filename': filename,
         'chapter-title': chapterTitle,
         'chapter-slug': chapterSlug
     }

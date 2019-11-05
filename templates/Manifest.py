@@ -14,12 +14,13 @@ def manifest(filenames):
 %(entries)s
   </manifest>
   <spine toc="ncx">
-    <itemref idref="Section0001.xhtml"/>
-    <itemref idref="Section0002.xhtml"/>
-    <itemref idref="Section0003.xhtml"/>
+%(toc)s
   </spine>
 </package>
-""" % {'entries': getManifestEntries(filenames)}
+""" % {
+        'entries': getManifestEntries(filenames),
+        'toc': getToc(filenames)
+    }
 
 
 def getManifestEntries(filenames):
@@ -31,4 +32,16 @@ def getManifestEntries(filenames):
 
 def getManifestEntry(filename):
     return """    <item id="%(filename)s" href="Text/%(filename)s" media-type="application/xhtml+xml"/>
+""" % {'filename': filename}
+
+
+def getToc(filenames):
+    entries = ""
+    for filename in filenames:
+        entries += getTocEntry(filename)
+    return entries
+
+
+def getTocEntry(filename):
+    return """    <itemref idref="%(filename)s"/>
 """ % {'filename': filename}

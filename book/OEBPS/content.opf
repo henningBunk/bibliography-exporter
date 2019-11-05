@@ -10,6 +10,7 @@
   <manifest>
     <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/>
     <item id="style.css" href="Styles/style.css" media-type="text/css"/>
+    <item id="Section0001.xhtml" href="Text/Section0001.xhtml" media-type="application/xhtml+xml"/>
     <item id="Section0101.xhtml" href="Text/Section0101.xhtml" media-type="application/xhtml+xml"/>
     <item id="Section0102.xhtml" href="Text/Section0102.xhtml" media-type="application/xhtml+xml"/>
     <item id="Section0103.xhtml" href="Text/Section0103.xhtml" media-type="application/xhtml+xml"/>
@@ -19,7 +20,11 @@
   </manifest>
   <spine toc="ncx">
     <itemref idref="Section0001.xhtml"/>
-    <itemref idref="Section0002.xhtml"/>
-    <itemref idref="Section0003.xhtml"/>
+    <itemref idref="Section0101.xhtml"/>
+    <itemref idref="Section0102.xhtml"/>
+    <itemref idref="Section0103.xhtml"/>
+    <itemref idref="Section0201.xhtml"/>
+    <itemref idref="Section0203.xhtml"/>
+
   </spine>
 </package>
