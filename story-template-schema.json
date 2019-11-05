@@ -1,0 +1,163 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://example.com/root.json",
+  "type": "object",
+  "title": "The Root Schema",
+  "required": [
+    "author",
+    "title-german",
+    "title-original",
+    "year",
+    "published",
+    "source",
+    "chapters"
+  ],
+  "properties": {
+    "author": {
+      "$id": "#/properties/author",
+      "type": "string",
+      "title": "The Author Schema",
+      "default": "",
+      "examples": [
+        "H.P. Lovecraft"
+      ],
+      "pattern": "^(.*)$"
+    },
+    "title-german": {
+      "$id": "#/properties/title-german",
+      "type": "string",
+      "title": "The Title-german Schema",
+      "default": "",
+      "examples": [
+        "Der Flüsterer im Dunkeln"
+      ],
+      "pattern": "^(.*)$"
+    },
+    "title-original": {
+      "$id": "#/properties/title-original",
+      "type": "string",
+      "title": "The Title-original Schema",
+      "default": "",
+      "examples": [
+        "A Whisperer in Darkness"
+      ],
+      "pattern": "^(.*)$"
+    },
+    "year": {
+      "$id": "#/properties/year",
+      "type": "integer",
+      "title": "The Year Schema",
+      "default": 0,
+      "examples": [
+        1930
+      ]
+    },
+    "published": {
+      "$id": "#/properties/published",
+      "type": "string",
+      "title": "The Published Schema",
+      "default": "",
+      "examples": [
+        "1932, Pulp Horror Magazin"
+      ],
+      "pattern": "^(.*)$"
+    },
+    "source": {
+      "$id": "#/properties/source",
+      "type": "string",
+      "title": "The Source Schema",
+      "default": "",
+      "examples": [
+        "Lovecrafts besten Geschichten / Festa / 1982"
+      ],
+      "pattern": "^(.*)$"
+    },
+    "translation": {
+      "$id": "#/properties/translation",
+      "type": "string",
+      "title": "The Translation Schema",
+      "default": "",
+      "examples": [
+        "Erika Fuchs"
+      ],
+      "pattern": "^(.*)$"
+    },
+    "category": {
+      "$id": "#/properties/category",
+      "type": "string",
+      "title": "The Category Schema",
+      "default": "",
+      "examples": [
+        "Cthulhu Mythos"
+      ],
+      "pattern": "^(.*)$"
+    },
+    "preface": {
+      "$id": "#/properties/preface",
+      "type": "object",
+      "title": "The Preface Schema",
+      "default": null,
+      "properties": {
+        "author": {
+          "$id": "#/properties/preface/properties/author",
+          "type": "string",
+          "title": "The Author Schema",
+          "default": "",
+          "examples": [
+            "Stephen King"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "content": {
+          "$id": "#/properties/preface/properties/content",
+          "type": "string",
+          "title": "The Content Schema",
+          "default": "",
+          "examples": [
+            "Dies ist eine tolle Geschichte weil..."
+          ],
+          "pattern": "^(.*)$"
+        }
+      },
+      "required": [
+        "content"
+      ]
+    },
+    "chapters": {
+      "$id": "#/properties/chapters",
+      "type": "array",
+      "title": "The Chapters Schema",
+      "items": {
+        "$id": "#/properties/chapters/items",
+        "type": "object",
+        "title": "The Items Schema",
+        "properties": {
+          "title": {
+            "$id": "#/properties/chapters/items/properties/title",
+            "type": "string",
+            "title": "The Title Schema",
+            "default": "",
+            "examples": [
+              "Kapitel I"
+            ],
+            "pattern": "^(.*)$"
+          },
+          "content": {
+            "$id": "#/properties/chapters/items/properties/content",
+            "type": "string",
+            "title": "The Content Schema",
+            "default": "",
+            "examples": [
+              "It was in the township of Dunwich, in a large and partly inhabited farmhouse set against..."
+            ],
+            "pattern": "^(.*)$"
+          }
+        },
+        "required": [
+          "content"
+        ]
+      }
+    }
+  }
+}
