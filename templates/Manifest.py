@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
+def manifest(filenames):
+    return """<?xml version="1.0" encoding="utf-8"?>
 <package version="2.0" unique-identifier="BookId" xmlns="http://www.idpf.org/2007/opf">
   <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
     <dc:identifier opf:scheme="UUID" id="BookId">urn:uuid:204e84e9-f3e7-465a-b14e-768b8e8fe875</dc:identifier>
@@ -10,12 +11,7 @@
   <manifest>
     <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/>
     <item id="style.css" href="Styles/style.css" media-type="text/css"/>
-    <item id="Section0101.xhtml" href="Text/Section0101.xhtml" media-type="application/xhtml+xml"/>
-    <item id="Section0102.xhtml" href="Text/Section0102.xhtml" media-type="application/xhtml+xml"/>
-    <item id="Section0103.xhtml" href="Text/Section0103.xhtml" media-type="application/xhtml+xml"/>
-    <item id="Section0201.xhtml" href="Text/Section0201.xhtml" media-type="application/xhtml+xml"/>
-    <item id="Section0203.xhtml" href="Text/Section0203.xhtml" media-type="application/xhtml+xml"/>
-
+%(entries)s
   </manifest>
   <spine toc="ncx">
     <itemref idref="Section0001.xhtml"/>
@@ -23,3 +19,16 @@
     <itemref idref="Section0003.xhtml"/>
   </spine>
 </package>
+""" % {'entries': getManifestEntries(filenames)}
+
+
+def getManifestEntries(filenames):
+    entries = ""
+    for filename in filenames:
+        entries += getManifestEntry(filename)
+    return entries
+
+
+def getManifestEntry(filename):
+    return """    <item id="%(filename)s" href="Text/%(filename)s" media-type="application/xhtml+xml"/>
+""" % {'filename': filename}

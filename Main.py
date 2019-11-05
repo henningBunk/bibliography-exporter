@@ -1,34 +1,34 @@
 import json
-import MainStoryTemplate
-import PrefaceTemplate
-import TitlePageTemplate
 import os
 from os.path import join
 import zipfile
 from Story import Story
+from templates import Manifest, MainStory, Preface, TitlePage
 
 
 def main():
     # Read in Stories and metadata
 
-    inputFilenames = ["story/story-template.json"] # TODO use a list with all input files here
-    stories = readInJsons(inputFilenames)
+    inputFilenames = [
+        "story/story-template.json",
+        "story/no-chapters.json"
+    ] # TODO use a list with all input files here
+    stories = readInStories(inputFilenames)
 
-    for story in stories:
-        chapterCount = story.getChapterCount()
+    for i, story in enumerate(stories):
+        i += 1
+        writeTitlePage(i, story)
+        if story.hasPreface():
+            writePreface(i, story.preface)
+        writeMainContent(i, story)
 
-        # Title page
-        writeTitlePage(1, story)
-        # Preface
-        writePreface(1, story.preface)
-        # # Main story
-        writeMainContent(1, story)
+    writeManifest()
 
     # Export ebook files
     makeEbook()
 
 
-def readInJsons(inputFilenames):
+def readInStories(inputFilenames):
     stories = []
     for fileName in inputFilenames:
         with open(fileName, 'r', encoding="UTF-8") as jsonFile:
@@ -38,25 +38,32 @@ def readInJsons(inputFilenames):
 
 
 def writeTitlePage(index, story):
-    filename = 'Section0001.xhtml'
-    message = TitlePageTemplate.formatTitlePage(story)
+    filename = join('Text', 'Section%02d01.xhtml' % index)
+    message = TitlePage.formatTitlePage(story)
     writeContent(filename, message)
 
 
 def writePreface(index, preface):
-    filename = 'Section0002.xhtml'
-    message = PrefaceTemplate.formatPreface(preface)
+    filename = join('Text', 'Section%02d02.xhtml' % index)
+    message = Preface.formatPreface(preface)
     writeContent(filename, message)
 
 
 def writeMainContent(index, story):
-    filename = 'Section0003.xhtml'
-    message = MainStoryTemplate.formatMainStory(story)
+    filename = join('Text', 'Section%02d03.xhtml' % index)
+    message = MainStory.formatMainStory(story)
     writeContent(filename, message)
 
 
+def writeManifest():
+    filenames = os.listdir(join('book', 'OEBPS', 'Text'))
+    filenames.sort()
+    message = Manifest.manifest(filenames)
+    writeContent('content.opf', message)
+
+
 def writeContent(filename, content):
-    f = open(join('book', 'OEBPS', 'Text', filename), 'w', encoding='UTF-8')
+    f = open(join('book', 'OEBPS', filename), 'w', encoding='UTF-8')
     f.write(content)
     f.close()
 

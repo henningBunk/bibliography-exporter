@@ -19,13 +19,9 @@ def formatTitlePage(story):
   <p class="data-field">Geschrieben: <span class="data-content">%(year)s</span></p>
 
   <p class="data-field">Erstveröffentlichung: <span class="data-content">%(published)s</span></p>
-
-  <p class="data-field">ÜbersetzerIn: <span class="data-content">%(translation)s</span></p>
-
+  %(translation)s
   <p class="data-field">Quelle: <span class="data-content">%(source)s</span></p>
-
-  <p class="data-field">Kategorie: <span class="data-content">%(category)s</span></p>
-
+  %(category)s
   %(toc)s
 </body>
 </html>""" % {
@@ -34,11 +30,21 @@ def formatTitlePage(story):
         'title-original': story.titleOriginal,
         'year': story.year,
         'published': story.published,
-        'translation': story.translation,
+        'translation': getTranslation(story.translation),
         'source': story.source,
-        'category': story.category,
+        'category': getCategory(story.category),
         'toc': formatToc(story)
     }
+
+
+def getTranslation(translation):
+    return ("""  <p class="data-field">ÜbersetzerIn: <span class="data-content">%(translation)s</span></p>
+""" % {'translation': translation}) if translation is not None else ""
+
+
+def getCategory(category):
+    return ("""  <p class="data-field">Kategorie: <span class="data-content">%(category)s</span></p>
+""" % {'category': category}) if category is not None else ""
 
 
 def formatToc(story):

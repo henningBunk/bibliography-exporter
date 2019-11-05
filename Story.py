@@ -10,9 +10,9 @@ class Story:
         self.year = json['year']
         self.published = json['published']
         self.source = json['source']
-        self.translation = json['translation']
-        self.category = json['category']
-        self.preface = self.Preface(json)
+        self.translation = json['translation'] if 'translation' in json else None
+        self.category = json['category'] if 'category' in json else None
+        self.preface = self.Preface(json) if 'preface' in json else None
         self.mainStorySlug = 'hauptgeschichte-' + Story.toSlug(json["title-german"])
         self.chapters = list(map(lambda chapter: self.Chapter(chapter, self.titleGermanSlug), json["chapters"]))
 
@@ -36,9 +36,9 @@ class Story:
 
     class Chapter:
         def __init__(self, json, titleGermanSlug):
-            self.title = json["title"]
             self.content = json["content"]
-            self.slug = titleGermanSlug + '-' + Story.toSlug(json["title"])
+            self.title = json["title"] if 'title' in json else None
+            self.slug = (titleGermanSlug + '-' + Story.toSlug(json["title"])) if 'title' in json else None
 
     @staticmethod
     def toSlug(string):
